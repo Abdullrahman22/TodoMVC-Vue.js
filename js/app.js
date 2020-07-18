@@ -33,7 +33,7 @@ new Vue({
 
     data: {
         newTodo: '',
-        todos: todos_storage.fetch , // instead of create fixed object { title: "test1", completed : true }
+        todos: todos_storage.fetch() , // instead of create fixed object { title: "test1", completed : true }
         visibility: 'all',
         editingTodo: null ,
         oldEditingTodo: null ,
@@ -64,6 +64,15 @@ new Vue({
                     todo.completed = value
                 });
             }
+        }
+    },
+
+    watch: {
+        todos:{  // watch todos property if any change
+            handler: function(todos){
+                todos_storage.save(todos)
+            },
+            deep: true  // to make watch more deepest
         }
     },
 
